@@ -1,19 +1,19 @@
-export default [
-    {
+export default {
+    testing: {
         "name": "Testing",
         "cards": [
             {
                 "name": "Vegetables",
-                "images": "cards/testing/vegetables.jpg"
+                "image": "/cards/testing/vegetables.jpg"
             },
             {
                 "name": "Waterfall",
-                "images": "cards/testing/waterfall.jpg"
+                "image": "/cards/testing/waterfall.jpg"
             },
             {
                 "name": "Onions",
-                "images": "cards/testing/onions.jpg"
+                "image": "/cards/testing/onions.jpg"
             }
         ]
     }
-];
+};
