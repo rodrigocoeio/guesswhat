@@ -82,12 +82,16 @@ export default {
 
         openNext() {
             let cardNumber = false;
+            let maxTries = 1000;
+            let tries = 0;
 
-            while (!cardNumber) {
+            while (!cardNumber && tries<maxTries) {
                 let number = Math.floor(Math.random() * (this.squares + 1));
                 if (!this.cardsOpened[number]) {
                     cardNumber = number;
+                    break;
                 }
+                tries++;
             }
 
             $('.CardSquare[number=' + cardNumber + ']').css('background-image', 'none');
