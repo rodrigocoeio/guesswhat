@@ -31,26 +31,17 @@ export default {
 
   methods: {
     startGame() {
-      const categoryName = store.game.category;
-      const category = store.categories[categoryName] ? store.categories[categoryName] : false;
-
-      if(!category)
-      {
-        alert("Choose a category first!");
-        return false;
-      }     
-
-      const card = Math.floor(Math.random() * category.cards.length);
-
-      console.log("Game Started");
-      store.game.started = true;
-      store.game.card = category.cards[card];
+      return store.startGame();
     }
   }
 }
 </script>
   
 <style scoped>
+main {
+  padding: 15px;
+}
+
 select {
   max-width: 200px;
   margin: auto;

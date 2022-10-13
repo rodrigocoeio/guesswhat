@@ -13,6 +13,10 @@ export default {
             {
                 "name": "Onions",
                 "image": "/cards/testing/onions.jpg"
+            },
+            {
+                "name": "Apple",
+                "image": "/cards/testing/apple.jpg"
             }
         ]
     }
