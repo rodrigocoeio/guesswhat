@@ -37,7 +37,8 @@ export default {
       tries++;
     }
 
-    this.openSquare(cardNumber);
+    if(cardNumber)
+      this.openSquare(cardNumber);
   },
   openAllSquares() {
     $(".CardSquare").css("background-image", "none");
