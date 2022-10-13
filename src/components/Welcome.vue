@@ -1,36 +1,59 @@
 <template>
-    <main>
-      <img src="images/guesswhat.jpg">
-      <br><br>
-      <select class="form form-select" v-model="game.category" placeholder="Choose a Category">
-        <option value="0">Choose a Category</option>
-        <option v-for="category in categories">{{ category.name }}</option>
-      </select>
-      <button class="btn btn-primary" @click="startGame">Start Game</button>
-    </main>
-  </template>
-  
-  <script>
-  import store from '$/store.js';
-  
-  export default {
-    data() {
-      return store
-    },
+  <main>
 
-    methods: {
-        startGame() {
-            console.log("Game Started");
-            store.game.started = true;
-        }
+    <img src="images/guesswhat.jpg">
+
+    <br><br>
+
+    <select class="form form-select" v-model="game.category">
+      <option value="0">Choose a Category</option>
+      <option v-for="category,index in categories" :value="index">{{ category.name }}</option>
+    </select>
+
+    <select class="form form-select" v-model="game.difficulty">
+      <option value="easy">Easy Mode</option>
+      <option value="normal">Normal Mode</option>
+      <option value="hard">Hard Mode</option>
+    </select>
+
+    <button class="btn btn-primary" @click="startGame">Start Game</button>
+
+  </main>
+</template>
+  
+<script>
+import store from "$/store.js";
+
+export default {
+  data() {
+    return store
+  },
+
+  methods: {
+    startGame() {
+      const categoryName = store.game.category;
+      const category = store.categories[categoryName] ? store.categories[categoryName] : false;
+
+      if(!category)
+      {
+        alert("Choose a category first!");
+        return false;
+      }     
+
+      const card = Math.floor(Math.random() * category.cards.length);
+
+      console.log("Game Started");
+      store.game.started = true;
+      store.game.card = category.cards[card];
     }
   }
-  </script>
+}
+</script>
   
-  <style scoped>
-  select {
-    max-width: 200px;
-    margin: auto;
-    margin-bottom: 15px;
-  }
-  </style>
+<style scoped>
+select {
+  max-width: 200px;
+  margin: auto;
+  margin-bottom: 15px;
+}
+</style>

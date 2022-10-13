@@ -1,23 +1,20 @@
 <template>
+  <header>
+    <div class="wrapper">
+      <!-- 
+      <nav>
+        <RouterLink to="/treasurehunt">Treasure Hunt</RouterLink>
+        <RouterLink to="/phaserexamples">Phaser Examples</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav> -->
+    </div>
+  </header>
 
-  <welcome v-if="!game.started"></welcome>
-  <game v-if="game.started"></game>
-  
+  <content>
+    <RouterView />
+  </content>
 </template>
 
-<script>
-  import store from "$/store.js";
-  import Welcome from "#/Welcome.vue";
-  import Game from "#/Game.vue";
-
-  export default {
-    data() {
-      return store
-    },
-
-    components: {
-      Welcome,
-      Game
-    }
-  }
+<script setup>
+  import { RouterLink, RouterView } from "vue-router";
 </script>
