@@ -4,7 +4,7 @@ export default {
   game: {
     started: false,
     difficulty: "easy",
-    category: "testing",
+    category: 0,
     card: false,
     guessed: false
   },

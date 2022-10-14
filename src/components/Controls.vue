@@ -19,14 +19,14 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Guess What -->
-                    <li class="nav-item" v-if="!guessed">
+                    <li class="nav-item">
                         <input type="text" id="guessWhat" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
-                            @blur="guessWhat" @keyup.enter="guessWhat" ref="guessWhat" />
+                            :disabled="guessed" @blur="guessWhat" @keyup.enter="guessWhat" ref="guessWhat" />
 
                     </li>
                     <!-- Guess What -->
-                    <li class="nav-item" v-if="!guessed">
-                        <button class="btn btn-outline-success" @click="guessWhat">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-success" @click="guessWhat" :disabled="guessed">
                             Guess What?
                         </button>
                     </li>
