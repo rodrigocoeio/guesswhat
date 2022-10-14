@@ -20,25 +20,30 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                     <!-- Open Next -->
                     <li class="nav-item">
-                        <button class="btn btn-success" @click="openNext">Open Next</button>
+                        <button class="btn btn-success" @click="openNext" :disabled="squares.length==0">Open Next</button>
                     </li>
                 </ul>
 
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Guess What -->
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!guessed">
                         <input type="text" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
-                            @blur="guessWhat" />
+                            @blur="guessWhat" @keyup.enter="guessWhat"/>
 
                     </li>
                     <!-- Guess What -->
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!guessed">
                         <button class="btn btn-outline-success" @click="guessWhat">Guess What</button>
                     </li>
 
                     <!-- Skip Card -->
-                    <li class="nav-item">
+                    <li class="nav-item" v-if="!guessed">
                         <button class="btn btn-success" @click="skipCard">Skip Card</button>
+                    </li>
+
+                    <!-- Next Card -->
+                    <li class="nav-item" v-if="guessed">
+                        <button class="btn btn-success" @click="skipCard">Next Card</button>
                     </li>
 
                     <!-- Quit Game -->
@@ -57,8 +62,17 @@ import store from "$/store";
 export default {
     data() {
         return {
-            cardsOpened: {},
             guessTry: ""
+        }
+    },
+
+    computed: {
+        guessed() {
+            return store.game.guessed;
+        },
+        
+        squares() {
+            return store.game.squares;
         }
     },
 

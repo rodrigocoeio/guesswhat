@@ -47,6 +47,7 @@ export default {
   },
   openAllSquares() {
     $(".CardSquare").css("background-image", "none");
+    this.game.squares = [];
   },
   guessWhat(guessTry) {
     if (guessTry == "") return false;

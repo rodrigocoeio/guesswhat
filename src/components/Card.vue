@@ -1,6 +1,7 @@
 <template>
     <div class="CardBox">
         <div class="Card" ref="card">
+            <h1 v-if="guessed"> {{ card.name }} </h1>
             <img :src="image" @load="loadCardSquares" />
         </div>
         <div class="SquaresBox" ref="squaresBox">
@@ -22,6 +23,10 @@ export default {
     computed: {
         card() {
             return store.card;
+        },
+
+        guessed() {
+            return store.game.guessed;
         },
 
         image() {
