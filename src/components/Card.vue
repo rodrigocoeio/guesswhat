@@ -58,6 +58,7 @@ export default {
         },
 
         openSquare(number) {
+            $("#guessWhat").focus();
             return store.openSquare(number);
         }
     }

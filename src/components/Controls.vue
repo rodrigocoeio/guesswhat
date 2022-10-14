@@ -18,6 +18,21 @@
             <!-- Navbar -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Guess What -->
+                    <li class="nav-item" v-if="!guessed">
+                        <input type="text" id="guessWhat" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
+                            @blur="guessWhat" @keyup.enter="guessWhat" ref="guessWhat" />
+
+                    </li>
+                    <!-- Guess What -->
+                    <li class="nav-item" v-if="!guessed">
+                        <button class="btn btn-outline-success" @click="guessWhat">
+                            Guess What?
+                        </button>
+                    </li>
+                </ul>
+
+                <ul class="nav navbar-nav navbar-right">
                     <!-- Open Next -->
                     <li class="nav-item">
                         <button class="btn btn-outline-success" @click="openNext" :disabled="squares.length==0">
@@ -29,21 +44,6 @@
                     <li class="nav-item" v-if="!guessed">
                         <button class="btn btn-outline-success" @click="skipCard">
                             Skip Card
-                        </button>
-                    </li>
-                </ul>
-
-                <ul class="nav navbar-nav navbar-right">
-                    <!-- Guess What -->
-                    <li class="nav-item" v-if="!guessed">
-                        <input type="text" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
-                            @blur="guessWhat" @keyup.enter="guessWhat" />
-
-                    </li>
-                    <!-- Guess What -->
-                    <li class="nav-item" v-if="!guessed">
-                        <button class="btn btn-outline-success" @click="guessWhat">
-                            Guess What?
                         </button>
                     </li>
 
@@ -88,6 +88,7 @@ export default {
 
     methods: {
         openNext() {
+            $(this.$refs.guessWhat).focus();
             return store.openRandomSquare();
         },
 
