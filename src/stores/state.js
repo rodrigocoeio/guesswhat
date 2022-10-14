@@ -6,7 +6,7 @@ export default {
     difficulty: "easy",
     category: "testing",
     card: false,
-    squaresOpened: {}
+    guessed: false
   },
 
   difficulties: {

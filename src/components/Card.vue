@@ -1,10 +1,10 @@
 <template>
     <div class="CardBox">
         <div class="Card" ref="card">
-            <img :src="image" @load="loadCardSquares"/>
+            <img :src="image" @load="loadCardSquares" />
         </div>
         <div class="SquaresBox" ref="squaresBox">
-            <div class="CardSquare" v-for="number in squares" :number="number" @click="openSquare(number)"></div>
+            <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)"></div>
         </div>
     </div>
 </template>
@@ -29,7 +29,11 @@ export default {
         },
 
         squares() {
-            return store.squares;
+            return store.game.squares;
+        },
+
+        squaresNumber() {
+            return store.squaresNumber;
         }
     },
 
@@ -38,8 +42,8 @@ export default {
             const $card = $(this.$refs.card);
             const $squaresBox = $(this.$refs.squaresBox);
 
-            $squaresBox.width( $card.width() );
-            $squaresBox.height( $card.height() );
+            $squaresBox.width($card.width());
+            $squaresBox.height($card.height());
 
             const squareWidth = $card.width() / store.rows;
             const squareHeight = $card.height() / store.cols;
@@ -79,7 +83,7 @@ export default {
 }
 
 .SquaresBox {
-    position:absolute;
+    position: absolute;
     top: 0px;
 }
 

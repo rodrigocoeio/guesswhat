@@ -27,7 +27,8 @@ export default {
 
     return difficulties[difficulty].grid.rows;
   },
-  squares() {
+
+  squaresNumber() {
     return this.cols * this.rows;
   },
 };

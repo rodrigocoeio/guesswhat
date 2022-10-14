@@ -1,12 +1,26 @@
 export default {
   startGame() {
     console.log("Game Started");
+
     this.game.started = true;
+    this.game.guessed = false;
     this.game.card = this.getNewCard();
+    this.game.squares = shuffleArray(this.getCardSquares());
   },
+
+  getCardSquares() {
+    const squares = [];
+    for (let i = 0; i < this.squaresNumber; i++) {
+      squares.push( (i+1) );
+    }
+
+    return squares;
+  },
+
   skipCard() {
     console.log("Skip Card");
-    return (this.game.card = this.getNewCard());
+
+    this.startGame();
   },
   getNewCard() {
     const category = this.currentCategory;
@@ -21,24 +35,15 @@ export default {
   },
   openSquare(number) {
     $(".CardSquare[number=" + number + "]").css("background-image", "none");
-    this.game.squaresOpened[number] = true;
+
+    this.game.squares = this.game.squares.filter(
+      (squareNumber) => squareNumber != number
+    );
   },
   openRandomSquare() {
-    let cardNumber = false;
-    let maxTries = 1000;
-    let tries = 0;
+    const cardNumber = this.game.squares.pop();
 
-    while (!cardNumber && tries < maxTries) {
-      let number = Math.floor(Math.random() * (this.squares + 1));
-      if (!this.game.squaresOpened[number]) {
-        cardNumber = number;
-        break;
-      }
-      tries++;
-    }
-
-    if(cardNumber)
-      this.openSquare(cardNumber);
+    if (cardNumber) this.openSquare(cardNumber);
   },
   openAllSquares() {
     $(".CardSquare").css("background-image", "none");
@@ -50,6 +55,7 @@ export default {
 
     if (this.card.name.toLowerCase() == guessTry.toLowerCase()) {
       this.openAllSquares();
+      this.game.guessed = true;
       alert("Congratulations! You've got it!");
     } else {
       alert("Sorry! You have missed it!");

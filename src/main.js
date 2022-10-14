@@ -9,6 +9,8 @@ import "./assets/main.css";
 // Import our custom CSS
 import './assets/styles.scss'
 
+import './scripts.js';
+
 import jQuery from "jquery";
 window.$ = jQuery;
 
