@@ -14,10 +14,10 @@ export default {
       grid: { cols: 6, rows: 6 },
     },
     normal: {
-      grid: { cols: 12, rows: 12 },
+      grid: { cols: 9, rows: 9 },
     },
     hard: {
-      grid: { cols: 24, rows: 24 },
+      grid: { cols: 12, rows: 12 },
     },
   },
 
