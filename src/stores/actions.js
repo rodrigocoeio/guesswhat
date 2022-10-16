@@ -2,6 +2,11 @@ export default {
   startGame() {
     console.log("Game Started");
 
+    if (!this.currentCategory) {
+      alert("Choose a category first!");
+      return false;
+    }
+
     this.game.started = true;
     this.game.guessed = false;
     this.game.card = this.getNewCard();
@@ -16,7 +21,10 @@ export default {
 
     return squares;
   },
-
+  nextCard() {
+    console.log("Next Card");
+    this.startGame();
+  },
   skipCard() {
     console.log("Skip Card");
 
@@ -24,11 +32,6 @@ export default {
   },
   getNewCard() {
     const category = this.currentCategory;
-
-    if (!category) {
-      alert("Choose a category first!");
-      return false;
-    }
 
     const card = Math.floor(Math.random() * category.cards.length);
     return category.cards[card];
@@ -39,6 +42,8 @@ export default {
     this.game.squares = this.game.squares.filter(
       (squareNumber) => squareNumber != number
     );
+
+    $("#guessWhat").focus();
   },
   openRandomSquare() {
     const cardNumber = this.game.squares.pop();

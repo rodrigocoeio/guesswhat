@@ -49,7 +49,7 @@
 
                     <!-- Next Card -->
                     <li class="nav-item" v-if="guessed">
-                        <button class="btn btn-outline-success" @click="skipCard">
+                        <button class="btn btn-outline-success" @click="nextCard">
                             Next Card
                         </button>
                     </li>
@@ -88,7 +88,6 @@ export default {
 
     methods: {
         openNext() {
-            $(this.$refs.guessWhat).focus();
             return store.openRandomSquare();
         },
 
@@ -99,6 +98,10 @@ export default {
 
         openAll() {
             return store.openAllSquares();
+        },
+
+        nextCard() {
+            return store.nextCard();
         },
 
         skipCard() {
