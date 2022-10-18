@@ -5,7 +5,8 @@
             <img :src="image" @load="loadCardSquares" />
         </div>
         <div class="SquaresBox" ref="squaresBox">
-            <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)"></div>
+            <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)">
+            </div>
         </div>
     </div>
 </template>
@@ -21,6 +22,14 @@ export default {
     },
 
     computed: {
+        deck() {
+            return store.game.deck;
+        },
+
+        deck_index() {
+            return store.game.deck_index;
+        },
+
         card() {
             return store.card;
         },
@@ -30,7 +39,7 @@ export default {
         },
 
         image() {
-            return this.card.image;
+            return this.card ? this.card.image : false;
         },
 
         squares() {

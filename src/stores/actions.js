@@ -9,33 +9,45 @@ export default {
 
     this.game.started = true;
     this.game.guessed = false;
-    this.game.card = this.getNewCard();
-    this.game.squares = shuffleArray(this.getCardSquares());
+    this.game.deck_index = 0;
+    this.game.deck = this.getNewDeck();
+    this.game.squares = this.getCardSquares();
+  },
+
+  getNewDeck() {
+    const cards = [];
+
+    for (let i = 0; i < this.cardsNumber; i++) {
+      cards.push(i);
+    }
+
+    return shuffleArray(cards);
   },
 
   getCardSquares() {
     const squares = [];
     for (let i = 0; i < this.squaresNumber; i++) {
-      squares.push( (i+1) );
+      squares.push(i + 1);
     }
 
-    return squares;
+    return shuffleArray(squares);
   },
+
   nextCard() {
-    console.log("Next Card");
-    this.startGame();
-  },
-  skipCard() {
-    console.log("Skip Card");
+    if (this.game.deck_index < this.game.deck.length - 1)
+      this.game.deck_index++;
 
-    this.startGame();
+    this.game.guessed = false;
+    this.game.squares = this.getCardSquares();
   },
-  getNewCard() {
-    const category = this.currentCategory;
 
-    const card = Math.floor(Math.random() * category.cards.length);
-    return category.cards[card];
+  previousCard() {
+    if (this.game.deck_index > 0) this.game.deck_index--;
+
+    this.game.guessed = false;
+    this.game.squares = this.getCardSquares();
   },
+
   openSquare(number) {
     $(".CardSquare[number=" + number + "]").css("background-image", "none");
 
@@ -45,15 +57,23 @@ export default {
 
     $("#guessWhat").focus();
   },
+
   openRandomSquare() {
     const cardNumber = this.game.squares.pop();
 
     if (cardNumber) this.openSquare(cardNumber);
   },
+
   openAllSquares() {
     $(".CardSquare").css("background-image", "none");
     this.game.squares = [];
   },
+
+  giveUp() {
+    this.openAllSquares();
+    this.game.guessed = true;
+  },
+
   guessWhat(guessTry) {
     if (guessTry == "") return false;
 
@@ -67,6 +87,7 @@ export default {
       alert("Sorry! You have missed it!");
     }
   },
+
   quitGame() {
     console.log("Quit Game");
     this.game.started = false;
