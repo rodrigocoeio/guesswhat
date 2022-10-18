@@ -5,7 +5,9 @@ export default {
     started: false,
     difficulty: "easy",
     category: 0,
-    card: false,
+    deck: [],
+    squares: [],
+    deck_index: 0,
     guessed: false
   },
 

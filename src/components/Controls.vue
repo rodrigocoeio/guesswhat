@@ -24,32 +24,41 @@
                             :disabled="guessed" @blur="guessWhat" @keyup.enter="guessWhat" ref="guessWhat" />
 
                     </li>
+
                     <!-- Guess What -->
                     <li class="nav-item">
                         <button class="btn btn-outline-success" @click="guessWhat" :disabled="guessed">
                             Guess What?
                         </button>
                     </li>
+
+                    <!-- Give Up -->
+                    <li class="nav-item">
+                        <button class="btn btn-outline-warning" @click="giveUp" :disabled="guessed">
+                            Give Up
+                        </button>
+                    </li>
                 </ul>
+
 
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Open Next -->
                     <li class="nav-item">
                         <button class="btn btn-outline-success" @click="openNext" :disabled="squares.length==0">
-                            Open Next
+                            Open Square
                         </button>
                     </li>
 
-                    <!-- Skip Card -->
-                    <li class="nav-item" v-if="!guessed">
-                        <button class="btn btn-outline-success" @click="skipCard">
-                            Skip Card
+                    <!-- Previous Card -->
+                    <li class="nav-item">
+                        <button class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
+                            Previous Card
                         </button>
                     </li>
 
                     <!-- Next Card -->
-                    <li class="nav-item" v-if="guessed">
-                        <button class="btn btn-outline-success" @click="nextCard">
+                    <li class="nav-item">
+                        <button class="btn btn-outline-success" :disabled="deck_index==(cardsNumber-1)" @click="nextCard">
                             Next Card
                         </button>
                     </li>
@@ -81,6 +90,14 @@ export default {
             return store.game.guessed;
         },
 
+        deck_index() {
+            return store.game.deck_index;
+        },
+
+        cardsNumber() {
+            return store.cardsNumber;
+        },
+
         squares() {
             return store.game.squares;
         }
@@ -96,16 +113,20 @@ export default {
             this.guessTry = "";
         },
 
+        giveUp() {
+            store.giveUp();
+        },
+
         openAll() {
             return store.openAllSquares();
         },
 
-        nextCard() {
-            return store.nextCard();
+        previousCard() {
+            return store.previousCard();
         },
 
-        skipCard() {
-            return store.skipCard();
+        nextCard() {
+            return store.nextCard();
         },
 
         quitGame() {

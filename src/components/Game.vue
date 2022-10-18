@@ -1,6 +1,8 @@
 <template>
-    <controls></controls>
-    <card></card>
+    <div class="Game">
+        <controls></controls>
+        <card></card>
+    </div>
 </template>
 
 <script>
@@ -15,3 +17,9 @@ export default {
     }
 }
 </script>
+
+<style scoped>
+    .Game {
+        background-color: black;
+    }
+</style>
