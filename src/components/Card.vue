@@ -87,6 +87,7 @@ export default {
     display: grid;
     width: fit-content;
     height: 100%;
+    background-color: white;
 }
 
 .Card img {

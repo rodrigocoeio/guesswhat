@@ -18,6 +18,11 @@
             <!-- Navbar -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <!-- Category Name -->
+                    <li class="nav-item CategoryName">
+                        {{ categoryName }}
+                    </li>
+
                     <!-- Guess What -->
                     <li class="nav-item">
                         <input type="text" id="guessWhat" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
@@ -51,15 +56,20 @@
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
-                            Previous Card
+                        <button class="btn btn-warning" :disabled="deck_index==0" @click="previousCard">
+                            &laquo; Previous Card
                         </button>
+                    </li>
+
+                    <li class="nav-item">
+                        &nbsp;&nbsp;
+                        {{ deck_index + 1 }} / {{ cardsNumber }}
                     </li>
 
                     <!-- Next Card -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-success" :disabled="deck_index==(cardsNumber-1)" @click="nextCard">
-                            Next Card
+                        <button class="btn btn-success" :disabled="deck_index==(cardsNumber-1)" @click="nextCard">
+                            Next Card &raquo;
                         </button>
                     </li>
 
@@ -86,6 +96,10 @@ export default {
     },
 
     computed: {
+        categoryName() {
+            return store.currentCategory ? store.currentCategory.name : "";
+        },
+
         guessed() {
             return store.game.guessed;
         },
@@ -139,5 +153,11 @@ export default {
 <style scoped>
 button {
     margin-left: 15px;
+}
+
+.CategoryName {
+    font-size: 20px;
+    font-weight: bolder;
+    padding-right: 15px;
 }
 </style>
