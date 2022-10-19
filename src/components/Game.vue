@@ -20,6 +20,8 @@ export default {
 
 <style scoped>
     .Game {
+        display: block;
+        height: 100%;
         background-color: black;
     }
 </style>
