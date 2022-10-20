@@ -1,5 +1,7 @@
 const path = require("path");
 const fs = require("fs");
+const silenceMode = true;
+
 const readFolder = async function (folder) {
   const directoryPath = path.join(__dirname, folder);
   const categories = {};
@@ -11,7 +13,7 @@ const readFolder = async function (folder) {
     const fullFilePath = folder + "/" + fileName;
 
     if (fs.lstatSync(fullFilePath).isDirectory()) {
-      console.log("reading category: " + fileName);
+      if(!silenceMode) console.log("reading category: " + fileName);
 
       const categoryRead = await readFolder(fullFilePath);
       const category = {
@@ -21,7 +23,7 @@ const readFolder = async function (folder) {
 
       categories[fileName] = category;
     } else {
-      console.log("reading card: " + fileName);
+      if(!silenceMode) console.log("reading card: " + fileName);
       cards.push({
         name: capitalizeFirstLetter(removeExtensionFromFileName(fileName)),
         image: fileName,
@@ -51,7 +53,7 @@ const readCategories = async function (folder, callback) {
 const folder = "./public/cards";
 const categoriesJsonPath = "./src/stores/categories.json";
 
-console.log("reading cards...");
+if(!silenceMode) console.log("reading cards...");
 
 readCategories(folder, function (categories) {
   fs.writeFileSync(categoriesJsonPath, JSON.stringify(categories));
