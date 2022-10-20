@@ -38,8 +38,14 @@ export default {
             return store.game.guessed;
         },
 
+        category() {
+            return store.currentCategory;
+        },
+
         image() {
-            return this.card ? this.card.image : false;
+            const path = "/cards/" + this.category.name + "/";
+
+            return this.card ? path + this.card.image : false;
         },
 
         squares() {
