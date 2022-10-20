@@ -1,10 +1,16 @@
 <template>
     <div class="CardBox">
         <div class="Card" ref="card">
-            <h1 v-if="guessed"> {{ card.name }} </h1>
-            <img :src="image" @load="loadCardSquares" />
+            <div v-if="guessed" class="alert alert-success" role="alert">
+                <img src="images/congrats.png" class="CongratsImage">
+                <br>
+                Congrats! You've nailed it!
+                <h1> {{ card.name }} </h1>
+            </div>
+
+            <img :src="image" class="CardImage" @load="loadCardSquares" />
         </div>
-        <div class="SquaresBox" ref="squaresBox">
+        <div class="SquaresBox" ref="squaresBox" v-show="!guessed">
             <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)">
             </div>
         </div>
@@ -96,7 +102,7 @@ export default {
     background-color: white;
 }
 
-.Card img {
+.CardImage {
     object-fit: contain;
     height: 100%;
     margin: auto;
@@ -113,5 +119,12 @@ export default {
     background-size: cover;
     background-repeat: no-repeat;
     float: left;
+    box-sizing: border-box;
+    border: 1px solid black;
+}
+
+.CongratsImage {
+    height: 36px;
+    margin: auto;
 }
 </style>

@@ -25,16 +25,11 @@
 
                     <!-- Guess What -->
                     <li class="nav-item">
-                        <input type="text" id="guessWhat" placeholder="Guess What?" class="form-control mr-sm-2" v-model="guessTry"
-                            :disabled="guessed" @blur="guessWhat" @keyup.enter="guessWhat" ref="guessWhat" />
+                        <select class="form-select" @change="guessWhat" v-model="guessTry" :disabled="guessed">
+                            <option selected value="0">Guess What?</option>
 
-                    </li>
-
-                    <!-- Guess What -->
-                    <li class="nav-item">
-                        <button class="btn btn-outline-success" @click="guessWhat" :disabled="guessed">
-                            Guess What?
-                        </button>
+                            <option v-for="card in cards" :value="card.name">{{ card.name }}</option>
+                        </select>
                     </li>
 
                     <!-- Give Up -->
@@ -91,13 +86,17 @@ import store from "$/store";
 export default {
     data() {
         return {
-            guessTry: ""
+            guessTry: "0"
         }
     },
 
     computed: {
         categoryName() {
             return store.currentCategory ? store.currentCategory.name : "";
+        },
+
+        cards() {
+            return store.cards;
         },
 
         guessed() {
@@ -124,7 +123,7 @@ export default {
 
         guessWhat() {
             store.guessWhat(this.guessTry);
-            this.guessTry = "";
+            this.guessTry = "0";
         },
 
         giveUp() {

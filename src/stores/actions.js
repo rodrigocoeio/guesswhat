@@ -82,7 +82,6 @@ export default {
     if (this.card.name.toLowerCase() == guessTry.toLowerCase()) {
       this.openAllSquares();
       this.game.guessed = true;
-      alert("Congratulations! You've got it!");
     } else {
       alert("Sorry! You have missed it!");
     }
