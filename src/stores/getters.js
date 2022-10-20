@@ -7,6 +7,10 @@ export default {
       : false;
   },
 
+  cards() {
+    return this.currentCategory ? this.currentCategory.cards : [];
+  },
+
   card() {
     const deck_index = this.game.deck_index;
     const card_index = this.game.deck[deck_index];
