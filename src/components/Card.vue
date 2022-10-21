@@ -75,7 +75,7 @@ export default {
             const squareHeight = $card.height() / store.cols;
             $('.CardSquare').css('width', squareWidth + 'px');
             $('.CardSquare').css('height', squareHeight + 'px');
-            $('.CardSquare').css('background-image', 'url(/images/guesswhat.jpg)');
+            $('.CardSquare').css('background-image', 'url(/images/square.png)');
         },
 
         openSquare(number) {
@@ -115,12 +115,10 @@ export default {
 }
 
 .CardSquare {
-    background-image: url(/images/guesswhat.jpg);
+    background-image: url(/images/square.png);
     background-size: cover;
     background-repeat: no-repeat;
     float: left;
-    box-sizing: border-box;
-    border: 1px solid black;
 }
 
 .CongratsImage {
