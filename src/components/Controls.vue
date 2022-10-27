@@ -135,8 +135,6 @@ export default {
         guessWhat() {
             store.guessWhat(this.guessTry);
             this.guessTry = "0";
-
-            $("#guessWhat").trigger('blur');
         },
 
         giveUp() {

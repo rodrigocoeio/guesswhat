@@ -3,7 +3,7 @@ export default {
     console.log("Game Started");
 
     if (!this.currentCategory) {
-      alert("Choose a category first!");
+      $("#categoryField").trigger("focus");
       return false;
     }
 
@@ -56,6 +56,8 @@ export default {
     this.game.squares = this.game.squares.filter(
       (squareNumber) => squareNumber != number
     );
+
+    $("#guessWhat").trigger('blur');
   },
 
   openRandomSquare() {
@@ -76,6 +78,8 @@ export default {
   },
 
   guessWhat(guessTry) {
+    $("#guessWhat").trigger('blur');
+    
     if (guessTry == "") return false;
 
     console.log("Guess What: " + guessTry);

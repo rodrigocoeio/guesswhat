@@ -3,7 +3,7 @@ import categories from "$/categories.js";
 export default {
   game: {
     started: false,
-    difficulty: "easy",
+    difficulty: "normal",
     category: 0,
     deck: [],
     squares: [],
