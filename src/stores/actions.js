@@ -9,6 +9,7 @@ export default {
 
     this.game.started = true;
     this.game.guessed = false;
+    this.game.givedUp = false;
     this.game.deck_index = 0;
     this.game.deck = this.getNewDeck();
     this.game.squares = this.getCardSquares();
@@ -38,6 +39,7 @@ export default {
       this.game.deck_index++;
 
     this.game.guessed = false;
+    this.game.givedUp = false;
     this.game.squares = this.getCardSquares();
   },
 
@@ -54,14 +56,13 @@ export default {
     this.game.squares = this.game.squares.filter(
       (squareNumber) => squareNumber != number
     );
-
-    $("#guessWhat").focus();
   },
 
   openRandomSquare() {
     const cardNumber = this.game.squares.pop();
 
     if (cardNumber) this.openSquare(cardNumber);
+    else this.giveUp();
   },
 
   openAllSquares() {
@@ -71,7 +72,7 @@ export default {
 
   giveUp() {
     this.openAllSquares();
-    this.game.guessed = true;
+    this.game.givedUp = true;
   },
 
   guessWhat(guessTry) {
@@ -82,8 +83,9 @@ export default {
     if (this.card.name.toLowerCase() == guessTry.toLowerCase()) {
       this.openAllSquares();
       this.game.guessed = true;
+      playAudio("right","mpeg");
     } else {
-      alert("Sorry! You have missed it!");
+      playAudio("wrong","mpeg");
     }
   },
 

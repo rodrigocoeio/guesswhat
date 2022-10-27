@@ -45,4 +45,8 @@ export default {
   squaresNumber() {
     return this.cols * this.rows;
   },
+
+  squaresLeft() {
+    return this.game.squares.length;
+  }
 };

@@ -1,17 +1,19 @@
 import store from "$/store";
 
-const listenKeyBoardEvents = function(e) {
-    if(store.game.started)
-    {
-        if (e.keyCode == 13) {
-            if(!store.game.guessed)
-                store.openRandomSquare();  
-            else
-                store.nextCard();
-                  
-        }
+const listenKeyBoardEvents = function (e) {
+  if (store.game.started) {
+    // Open Next Square on Enter
+    if (e.keyCode == 13) {
+      if (!store.game.guessed && !store.game.givedUp) {
+        store.openRandomSquare();
+      } else store.nextCard();
     }
-    
+
+    // Open Guess What box on space
+    if (e.keyCode == 32) {
+      $("#guessWhat").trigger("focus");
+    }
+  }
 };
 
 window.addEventListener("keypress", listenKeyBoardEvents);

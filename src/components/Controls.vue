@@ -2,7 +2,7 @@
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
             <!-- Logo -->
-            <a class="navbar-brand" href="#">
+            <a id="logo" class="navbar-brand">
                 <img src="images/guesswhat.jpg" width="36" />
             </a>
 
@@ -25,7 +25,8 @@
 
                     <!-- Guess What -->
                     <li class="nav-item">
-                        <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry" :disabled="guessed">
+                        <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry"
+                            :disabled="guessed || givedUp">
                             <option selected value="0">Guess What?</option>
 
                             <option v-for="card in cards" :value="card.name">{{ card.name }}</option>
@@ -34,7 +35,7 @@
 
                     <!-- Give Up -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-warning" @click="giveUp" :disabled="guessed">
+                        <button id="giveUpButton" class="btn btn-outline-warning" @click="giveUp" :disabled="guessed || givedUp">
                             Give Up
                         </button>
                     </li>
@@ -44,14 +45,15 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Open Next -->
                     <li class="nav-item">
-                        <button class="btn btn-success" @click="openNext" :disabled="squares.length==0">
+                        <button id="openSquareButton" class="btn btn-success" @click="openNext"
+                            :disabled="squares.length==0">
                             Open Square
                         </button>
                     </li>
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
+                        <button id="previousCardButton" class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
                             &laquo; Previous Card
                         </button>
                     </li>
@@ -63,7 +65,8 @@
 
                     <!-- Next Card -->
                     <li class="nav-item">
-                        <button class="btn btn-success" :disabled="deck_index==(cardsNumber-1)" @click="nextCard">
+                        <button id="nextCardButton" class="btn btn-success" :disabled="deck_index==(cardsNumber-1)"
+                            @click.stop.prevent="nextCard">
                             Next Card &raquo;
                         </button>
                     </li>
@@ -103,6 +106,10 @@ export default {
             return store.game.guessed;
         },
 
+        givedUp() {
+            return store.game.givedUp;
+        },
+
         deck_index() {
             return store.game.deck_index;
         },
@@ -118,32 +125,44 @@ export default {
 
     methods: {
         openNext() {
-            return store.openRandomSquare();
+            console.log("open next button");
+
+            store.openRandomSquare();
+
+            $("#openSquareButton").trigger('blur');
         },
 
         guessWhat() {
             store.guessWhat(this.guessTry);
             this.guessTry = "0";
+
+            $("#guessWhat").trigger('blur');
         },
 
         giveUp() {
             store.giveUp();
+
+            $("#giveUpButton").trigger('blur');
         },
 
         openAll() {
-            return store.openAllSquares();
+            store.openAllSquares();
         },
 
         previousCard() {
-            return store.previousCard();
+            store.previousCard();
+
+            $("#previousCardButton").trigger('blur');
         },
 
         nextCard() {
-            return store.nextCard();
+            store.nextCard();
+
+            $("#nextCardButton").trigger('blur');
         },
 
         quitGame() {
-            return store.quitGame();
+            store.quitGame();
         }
     },
 };

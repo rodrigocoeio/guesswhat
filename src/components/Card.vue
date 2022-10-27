@@ -1,10 +1,12 @@
 <template>
     <div class="CardBox">
-        <div class="Card" ref="card">
-            <div v-if="guessed" class="alert alert-success" role="alert">
-                <img src="images/congrats.png" class="CongratsImage">
-                <br>
-                Congrats! You've nailed it!
+        <div id="card" class="Card" ref="card">
+            <div v-if="guessed || givedUp" class="alert alert-success" role="alert">
+                <div v-if="guessed">
+                    <img src="images/congrats.png" class="CongratsImage">
+                    <br>
+                    Congrats! You've nailed it!
+                </div>
                 <h1> {{ card.name }} </h1>
             </div>
 
@@ -42,6 +44,10 @@ export default {
 
         guessed() {
             return store.game.guessed;
+        },
+
+        givedUp() {
+            return store.game.givedUp;
         },
 
         category() {

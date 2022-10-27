@@ -8,7 +8,8 @@ export default {
     deck: [],
     squares: [],
     deck_index: 0,
-    guessed: false
+    guessed: false,
+    givedUp: false
   },
 
   difficulties: {
