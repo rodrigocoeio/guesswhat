@@ -13,7 +13,6 @@ const listenKeyBoardEvents = function (e) {
     if (e.keyCode == 32) {
       $("#guessWhat").trigger("focus");
     }
-    
 
     // Quit Game on Backspace or esc
     if (e.keyCode == 8 || e.keyCode == 27) {
@@ -25,5 +24,9 @@ const listenKeyBoardEvents = function (e) {
     }
   }
 };
+
+$( window ).on("resize", function(e) {
+  store.startGame();
+});
 
 window.addEventListener("keydown", listenKeyBoardEvents);
