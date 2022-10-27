@@ -25,7 +25,7 @@
 
                     <!-- Guess What -->
                     <li class="nav-item">
-                        <select class="form-select" @change="guessWhat" v-model="guessTry" :disabled="guessed">
+                        <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry" :disabled="guessed">
                             <option selected value="0">Guess What?</option>
 
                             <option v-for="card in cards" :value="card.name">{{ card.name }}</option>
@@ -44,14 +44,14 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Open Next -->
                     <li class="nav-item">
-                        <button class="btn btn-outline-success" @click="openNext" :disabled="squares.length==0">
+                        <button class="btn btn-success" @click="openNext" :disabled="squares.length==0">
                             Open Square
                         </button>
                     </li>
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button class="btn btn-warning" :disabled="deck_index==0" @click="previousCard">
+                        <button class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
                             &laquo; Previous Card
                         </button>
                     </li>
