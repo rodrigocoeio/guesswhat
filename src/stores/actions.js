@@ -47,6 +47,7 @@ export default {
     if (this.game.deck_index > 0) this.game.deck_index--;
 
     this.game.guessed = false;
+    this.game.givedUp = false;
     this.game.squares = this.getCardSquares();
   },
 
