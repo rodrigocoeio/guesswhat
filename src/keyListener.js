@@ -26,7 +26,7 @@ const listenKeyBoardEvents = function (e) {
 };
 
 $( window ).on("resize", function(e) {
-  store.startGame();
+  store.quitGame();
 });
 
 window.addEventListener("keydown", listenKeyBoardEvents);
