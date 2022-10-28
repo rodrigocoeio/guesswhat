@@ -4,7 +4,7 @@ export default {
   game: {
     started: false,
     difficulty: "normal",
-    category: 0,
+    category: "all",
     deck: [],
     squares: [],
     deck_index: 0,
