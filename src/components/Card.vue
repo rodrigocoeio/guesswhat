@@ -12,9 +12,8 @@
 
             <img :src="image" class="CardImage" @load="loadCardSquares" />
         </div>
-        <div class="SquaresBox" ref="squaresBox" v-show="!guessed">
-            <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)">
-            </div>
+        <div class="SquaresBox" ref="squaresBox" v-show="!guessed && !givedUp">
+            <div class="CardSquare" v-for="number in squaresNumber" :number="number" @click="openSquare(number)"></div>
         </div>
     </div>
 </template>

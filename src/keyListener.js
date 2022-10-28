@@ -14,9 +14,24 @@ const listenKeyBoardEvents = function (e) {
       $("#guessWhat").trigger("focus");
     }
 
-    // Quit Game on Backspace or esc
-    if (e.keyCode == 8 || e.keyCode == 27) {
+    // Previous card on left arrow
+    if (e.keyCode == 37) {
+      store.previousCard();
+    }
+
+    // Next card on right arrow
+    if (e.keyCode == 39) {
+      store.nextCard();
+    }
+
+    // Quit Game on Esc
+    if (e.keyCode == 27) {
       store.quitGame();
+    }
+
+    // Give UP on Backspace
+    if (e.keyCode == 8) {
+      store.giveUp();
     }
   } else {
     if (e.keyCode == 13) {
@@ -25,7 +40,7 @@ const listenKeyBoardEvents = function (e) {
   }
 };
 
-$( window ).on("resize", function(e) {
+$(window).on("resize", function (e) {
   store.quitGame();
 });
 
