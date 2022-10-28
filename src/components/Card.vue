@@ -55,7 +55,7 @@ export default {
         },
 
         image() {
-            const path = "/cards/" + this.category.name + "/";
+            const path = "/cards/" + this.card.category + "/";
 
             return this.card ? path + this.card.image : false;
         },

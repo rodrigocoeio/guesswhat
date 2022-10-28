@@ -7,6 +7,7 @@
 
     <select id="categoryField" class="form form-select" v-model="game.category">
       <option value="0">Choose a Category</option>
+      <option value="all">All Cards</option>
       <option v-for="category,index in categories" :value="index">{{ category.name }}</option>
     </select>
 

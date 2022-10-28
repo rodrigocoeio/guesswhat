@@ -18,6 +18,22 @@ window.shuffleArray = function (array) {
   return array;
 };
 
+window.sortByKey = (array, key, order = "asc") => {
+  return array.sort(function (a, b) {
+    var x = a[key];
+    var y = b[key];
+
+    switch (order) {
+      case "desc":
+        return x > y ? -1 : x < y ? 1 : 0;
+      case "asc":
+        return x < y ? -1 : x > y ? 1 : 0;
+    }
+
+    return x < y ? -1 : x > y ? 1 : 0;
+  });
+};
+
 window.playAudio = (audio_name, extension = "mp3") => {
   var audio = new Audio("/audios/" + audio_name + "." + extension);
   audio.play();

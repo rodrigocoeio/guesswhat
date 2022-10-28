@@ -2,7 +2,7 @@ const path = require("path");
 const fs = require("fs");
 const silenceMode = true;
 
-const readFolder = async function (folder) {
+const readFolder = async function (folder, categoryName) {
   const directoryPath = path.join(__dirname, folder);
   const categories = {};
   const cards = [];
@@ -15,7 +15,7 @@ const readFolder = async function (folder) {
     if (fs.lstatSync(fullFilePath).isDirectory()) {
       if(!silenceMode) console.log("reading category: " + fileName);
 
-      const categoryRead = await readFolder(fullFilePath);
+      const categoryRead = await readFolder(fullFilePath, fileName);
       const category = {
         name: capitalizeFirstLetter(fileName),
         cards: categoryRead.cards,
@@ -26,6 +26,7 @@ const readFolder = async function (folder) {
       if(!silenceMode) console.log("reading card: " + fileName);
       cards.push({
         name: capitalizeFirstLetter(removeExtensionFromFileName(fileName)),
+        category: categoryName,
         image: fileName,
       });
     }
