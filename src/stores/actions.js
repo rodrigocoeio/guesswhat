@@ -58,7 +58,7 @@ export default {
       (squareNumber) => squareNumber != number
     );
 
-    $("#guessWhat").trigger('blur');
+    $("#guessWhat").trigger("blur");
   },
 
   openRandomSquare() {
@@ -73,24 +73,46 @@ export default {
     this.game.squares = [];
   },
 
+  playCardAudio() {
+    this.stopAudio();
+
+    if (!this.card) return false;
+
+    if (this.card.audio) {
+      const audioFile = "/cards/" + this.card.category + "/" + this.card.audio;
+      this.game.audio = playAudio(audioFile);
+    }
+  },
+
+  stopAudio() {
+    if (this.game.audio) {
+      this.game.audio.pause();
+    }
+  },
+
   giveUp() {
     this.openAllSquares();
+    this.playCardAudio();
     this.game.givedUp = true;
   },
 
   guessWhat(guessTry) {
-    $("#guessWhat").trigger('blur');
-    
+    $("#guessWhat").trigger("blur");
+
     if (guessTry == "") return false;
 
     console.log("Guess What: " + guessTry);
 
     if (this.card.name.toLowerCase() == guessTry.toLowerCase()) {
+      const store = this;
       this.openAllSquares();
       this.game.guessed = true;
-      playAudio("right","mpeg");
+      const audio = playAudio("right", "mpeg");
+      audio.onended = function () {
+        store.playCardAudio();
+      };
     } else {
-      playAudio("wrong","mpeg");
+      playAudio("wrong", "mpeg");
     }
   },
 

@@ -24,10 +24,15 @@ const readFolder = async function (folder, categoryName) {
       categories[fileName] = category;
     } else {
       if(!silenceMode) console.log("reading card: " + fileName);
+
+      const cardName = removeExtensionFromFileName(fileName);
+      const cardAudio = cardName + ".mp3";
+
       cards.push({
-        name: capitalizeFirstLetter(removeExtensionFromFileName(fileName)),
+        name: capitalizeFirstLetter(cardName),
         category: categoryName,
         image: fileName,
+        audio: fs.existsSync(folder + "/" + cardAudio) ? cardAudio : false,
       });
     }
   });

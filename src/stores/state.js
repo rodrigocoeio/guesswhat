@@ -5,6 +5,7 @@ export default {
     started: false,
     difficulty: "normal",
     category: "all",
+    audio: false,
     deck: [],
     squares: [],
     deck_index: 0,
