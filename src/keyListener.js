@@ -11,7 +11,10 @@ const listenKeyBoardEvents = function (e) {
 
     // Open Guess What box on space
     if (e.keyCode == 32) {
-      $("#guessWhat").trigger("focus");
+      if (store.game.guessed || store.game.givedUp)
+        store.playCardAudio()
+      else
+        $("#guessWhat").trigger("focus");
     }
 
     // Previous card on left arrow
