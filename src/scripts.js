@@ -35,7 +35,9 @@ window.sortByKey = (array, key, order = "asc") => {
 };
 
 window.playAudio = (audio_name, extension = "mp3") => {
-  var audio = new Audio("/audios/" + audio_name + "." + extension);
+  if(extension && extension!="")
+    audio_name = audio_name + "." + extension;
+  var audio = new Audio("/audios/" + audio_name);
   audio.play();
   return audio;
 };
