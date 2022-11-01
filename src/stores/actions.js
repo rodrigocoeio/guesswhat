@@ -80,7 +80,7 @@ export default {
 
     if (this.card.audio) {
       const audioFile = "/cards/" + this.card.category + "/" + this.card.audio;
-      this.game.audio = playAudio(audioFile);
+      this.game.audio = playAudio(audioFile, "");
     }
   },
 
