@@ -79,8 +79,9 @@ export default {
     if (!this.card) return false;
 
     if (this.card.audio) {
-      const audioFile = "/cards/" + this.card.category + "/" + this.card.audio;
-      this.game.audio = playAudio(audioFile, "");
+      const cardAudioFile = "/cards/" + this.card.category + "/" + this.card.audio;
+      this.game.audio = new Audio(cardAudioFile);
+      this.game.audio.play();
     }
   },
 
