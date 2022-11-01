@@ -13,7 +13,7 @@ const readFolder = async function (folder, categoryName) {
     const fullFilePath = folder + "/" + fileName;
 
     if (fs.lstatSync(fullFilePath).isDirectory()) {
-      if(!silenceMode) console.log("reading category: " + fileName);
+      if (!silenceMode) console.log("reading category: " + fileName);
 
       const categoryRead = await readFolder(fullFilePath, fileName);
       const category = {
@@ -23,17 +23,21 @@ const readFolder = async function (folder, categoryName) {
 
       categories[fileName] = category;
     } else {
-      if(!silenceMode) console.log("reading card: " + fileName);
+      if (!silenceMode) console.log("reading card: " + fileName);
 
-      const cardName = removeExtensionFromFileName(fileName);
-      const cardAudio = cardName + ".mp3";
+      const fileExtension = getExtensionFromFileName(fileName);
 
-      cards.push({
-        name: capitalizeFirstLetter(cardName),
-        category: categoryName,
-        image: fileName,
-        audio: fs.existsSync(folder + "/" + cardAudio) ? cardAudio : false,
-      });
+      if (fileExtension === "jpg" || fileExtension === "jpge") {
+        const cardName = removeExtensionFromFileName(fileName);
+        const cardAudio = cardName + ".mp3";
+
+        cards.push({
+          name: capitalizeFirstLetter(cardName),
+          category: categoryName,
+          image: fileName,
+          audio: fs.existsSync(folder + "/" + cardAudio) ? cardAudio : false,
+        });
+      }
     }
   });
 
@@ -41,6 +45,12 @@ const readFolder = async function (folder, categoryName) {
     categories,
     cards,
   };
+};
+
+const getExtensionFromFileName = function (fileName) {
+  const fileNameSplited = fileName.split(".");
+
+  return fileNameSplited[1] ? fileNameSplited[1].toLowerCase() : "";
 };
 
 const removeExtensionFromFileName = function (fileName) {
@@ -59,7 +69,7 @@ const readCategories = async function (folder, callback) {
 const folder = "./public/cards";
 const categoriesJsonPath = "./src/stores/categories.json";
 
-if(!silenceMode) console.log("reading cards...");
+if (!silenceMode) console.log("reading cards...");
 
 readCategories(folder, function (categories) {
   fs.writeFileSync(categoriesJsonPath, JSON.stringify(categories));
