@@ -77,7 +77,7 @@ export default {
   playCardAudio(card) {
     this.stopAudio();
 
-    const card = card ? card : this.card;
+    card = card ? card : this.card;
 
     if (!card) return false;
 
