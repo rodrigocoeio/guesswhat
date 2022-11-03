@@ -40,7 +40,7 @@ export default {
 
     methods: {
         playCardAudio() {
-            return store.playCardAudio();
+            return store.playCardAudio(this.card);
         }
     }
 }

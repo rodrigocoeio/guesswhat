@@ -74,13 +74,15 @@ export default {
     this.game.squares = [];
   },
 
-  playCardAudio() {
+  playCardAudio(card) {
     this.stopAudio();
 
-    if (!this.card) return false;
+    const card = card ? card : this.card;
 
-    if (this.card.audio) {
-      const cardAudioFile = "/cards/" + this.card.category + "/" + this.card.audio;
+    if (!card) return false;
+
+    if (card.audio) {
+      const cardAudioFile = "/cards/" + card.category + "/" + card.audio;
       this.game.audio = new Audio(cardAudioFile);
       this.game.audio.play();
     }
