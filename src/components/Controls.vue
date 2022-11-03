@@ -15,9 +15,11 @@
                 </a>
             </button>
 
+            <button class="btn btn-primary StartGame" @click="startGame" v-if="cover">Start Game</button>
+
             <!-- Navbar -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="!cover">
                     <!-- Category Name -->
                     <li class="nav-item CategoryName">
                         {{ categoryName }}
@@ -42,7 +44,7 @@
                 </ul>
 
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav navbar-right" v-if="!cover">
                     <!-- Open Next -->
                     <li class="nav-item">
                         <button id="openSquareButton" class="btn btn-success" @click="openNext"
@@ -102,6 +104,10 @@ export default {
             return store.cards;
         },
 
+        cover() {
+            return store.game.cover;
+        },
+
         guessed() {
             return store.game.guessed;
         },
@@ -159,6 +165,10 @@ export default {
             $("#nextCardButton").trigger('blur');
         },
 
+        startGame() {
+            store.game.cover = false;
+        },
+
         quitGame() {
             store.quitGame();
         }
@@ -169,6 +179,10 @@ export default {
 <style scoped>
 button {
     margin-left: 15px;
+}
+
+.StartGame {
+    margin-left: calc(50% - 100px);
 }
 
 .CategoryName {

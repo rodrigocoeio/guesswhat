@@ -8,6 +8,7 @@ export default {
     }
 
     this.game.started = true;
+    this.game.cover = this.currentCategory.cover;
     this.game.guessed = false;
     this.game.givedUp = false;
     this.game.deck_index = 0;

@@ -5,6 +5,7 @@ const silenceMode = true;
 const readFolder = async function (folder, categoryName) {
   const directoryPath = path.join(__dirname, folder);
   const categories = {};
+  let cover = false;
   const cards = [];
 
   const files = fs.readdirSync(directoryPath);
@@ -18,6 +19,7 @@ const readFolder = async function (folder, categoryName) {
       const categoryRead = await readFolder(fullFilePath, fileName);
       const category = {
         name: capitalizeFirstLetter(fileName),
+        cover: categoryRead.cover,
         cards: categoryRead.cards,
       };
 
@@ -30,18 +32,24 @@ const readFolder = async function (folder, categoryName) {
       if (fileExtension === "jpg" || fileExtension === "jpge") {
         const cardName = removeExtensionFromFileName(fileName);
         const cardAudio = cardName + ".mp3";
-
-        cards.push({
+        const card = {
           name: capitalizeFirstLetter(cardName),
           category: categoryName,
           image: fileName,
           audio: fs.existsSync(folder + "/" + cardAudio) ? cardAudio : false,
-        });
+        };
+
+        if (cardName == categoryName) {
+          cover = card;
+        } else {
+          cards.push(card);
+        }
       }
     }
   });
 
   return {
+    cover,
     categories,
     cards,
   };
