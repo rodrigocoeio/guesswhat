@@ -35,7 +35,10 @@ export default {
     return shuffleArray(squares);
   },
 
-  nextCard() {
+  nextCard() {    
+    if(this.game.cover)
+      return this.game.cover = false;
+
     if (this.game.deck_index < this.game.deck.length - 1)
       this.game.deck_index++;
 

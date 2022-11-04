@@ -4,17 +4,16 @@ const listenKeyBoardEvents = function (e) {
   if (store.game.started) {
     // Open Next Square on Enter
     if (e.keyCode == 13) {
-      if (!store.game.guessed && !store.game.givedUp) {
+      if (!store.game.guessed && !store.game.givedUp && !store.game.cover) {
         store.openRandomSquare();
       } else store.nextCard();
     }
 
     // Open Guess What box on space
     if (e.keyCode == 32) {
-      if (store.game.guessed || store.game.givedUp)
-        store.playCardAudio()
-      else
-        $("#guessWhat").trigger("focus");
+      if (store.game.guessed || store.game.givedUp) store.playCardAudio();
+      else if (store.game.cover) store.playCardAudio(store.game.cover);
+      else $("#guessWhat").trigger("focus");
     }
 
     // Previous card on left arrow

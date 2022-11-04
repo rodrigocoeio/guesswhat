@@ -166,7 +166,7 @@ export default {
         },
 
         startGame() {
-            store.game.cover = false;
+            store.nextCard();
         },
 
         quitGame() {
