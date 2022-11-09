@@ -23,7 +23,7 @@ export default {
       cards.push(i);
     }
 
-    return shuffleArray(cards);
+    return this.game.cardSorting==="shuffle" ? shuffleArray(cards) : sortByKey(cards, "name");
   },
 
   getCardSquares() {

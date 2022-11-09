@@ -5,6 +5,11 @@
 
     <br><br>
 
+    <select class="form form-select" v-model="game.cardSorting">
+      <option value="shuffle">Shuffle Cards</option>
+      <option value="alpha">Alphabetical Sorting</option>
+    </select>
+
     <select id="categoryField" class="form form-select" v-model="game.category">
       <option value="0">Choose a Category</option>
       <option value="all">All Cards</option>
