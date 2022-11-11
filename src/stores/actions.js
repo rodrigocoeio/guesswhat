@@ -114,9 +114,10 @@ export default {
       const store = this;
       this.openAllSquares();
       this.game.guessed = true;
+      const card = this.card;
       const audio = playAudio("right", "mpeg");
       audio.onended = function () {
-        store.playCardAudio();
+        store.playCardAudio(card);
       };
     } else {
       playAudio("wrong", "mpeg");
