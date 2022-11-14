@@ -15,7 +15,7 @@
                 </a>
             </button>
 
-            <button class="btn btn-primary StartGame" @click="startGame" v-if="cover">Start Game</button>
+            <button class="btn btn-primary StartGame" @click="startGame" :disabled="playingAudio" v-if="cover">Start Game</button>
 
             <!-- Navbar -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,7 +24,7 @@
                     <li class="nav-item CategoryName">
                         {{ categoryName }}
                     </li>
-
+                    
                     <!-- Guess What -->
                     <li class="nav-item">
                         <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry"
@@ -55,7 +55,7 @@
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button id="previousCardButton" class="btn btn-outline-warning" :disabled="deck_index==0" @click="previousCard">
+                        <button id="previousCardButton" class="btn btn-outline-warning" :disabled="deck_index==0 || playingAudio" @click="previousCard">
                             &laquo; Previous Card
                         </button>
                     </li>
@@ -67,7 +67,7 @@
 
                     <!-- Next Card -->
                     <li class="nav-item">
-                        <button id="nextCardButton" class="btn btn-success" :disabled="deck_index==(cardsNumber-1)"
+                        <button id="nextCardButton" class="btn btn-success" :disabled="deck_index==(cardsNumber-1) || playingAudio"
                             @click.stop.prevent="nextCard">
                             Next Card &raquo;
                         </button>
@@ -96,6 +96,10 @@ export default {
     },
 
     computed: {
+        playingAudio() {
+            return store.game.audio;
+        },
+
         categoryName() {
             return store.currentCategory ? store.currentCategory.name : "";
         },

@@ -4,8 +4,8 @@ export default {
   game: {
     started: false,
     difficulty: "normal",
-    category: "all",
-    cardSorting: "shuffle",
+    category: false,
+    cardSorting: "alpha",
     audio: false,
     deck: [],
     squares: [],

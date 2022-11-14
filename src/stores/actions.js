@@ -1,11 +1,13 @@
 export default {
   startGame() {
-    console.log("Game Started");
-
-    if (!this.currentCategory) {
+    if(!this.currentCategory || (!this.currentCategory.cards || this.currentCategory.cards.length===0))
+    {
+      alert('Choose a Category or Subcategory');
       $("#categoryField").trigger("focus");
       return false;
     }
+
+    console.log("Game Started");
 
     this.game.started = true;
     this.game.cover = this.currentCategory.cover;
@@ -23,7 +25,9 @@ export default {
       cards.push(i);
     }
 
-    return this.game.cardSorting==="shuffle" ? shuffleArray(cards) : sortByKey(cards, "name");
+    return this.game.cardSorting === "shuffle"
+      ? shuffleArray(cards)
+      : sortByKey(cards, "name");
   },
 
   getCardSquares() {
@@ -35,9 +39,12 @@ export default {
     return shuffleArray(squares);
   },
 
-  nextCard() {    
-    if(this.game.cover)
-      return this.game.cover = false;
+  nextCard() {
+    if (this.game.audio) return false;
+
+    if (this.game.cover) return (this.game.cover = false);
+
+    console.log("Next Card");
 
     if (this.game.deck_index < this.game.deck.length - 1)
       this.game.deck_index++;
@@ -48,6 +55,10 @@ export default {
   },
 
   previousCard() {
+    if (this.game.audio) return false;
+
+    console.log("Previous Card");
+
     if (this.game.deck_index > 0) this.game.deck_index--;
 
     this.game.guessed = false;
@@ -56,6 +67,7 @@ export default {
   },
 
   openSquare(number) {
+    console.log("Open Square " + number);
     $(".CardSquare[number=" + number + "]").css("background-image", "none");
 
     this.game.squares = this.game.squares.filter(
@@ -66,6 +78,9 @@ export default {
   },
 
   openRandomSquare() {
+    if (this.game.givedUp || this.game.guessed) return false;
+
+    console.log("Open Random Square");
     const cardNumber = this.game.squares.pop();
 
     if (cardNumber) this.openSquare(cardNumber);
@@ -84,9 +99,16 @@ export default {
 
     if (!card) return false;
 
+    console.log("playing card " + card.name);
+
+    const store = this;
+
     if (card.audio) {
       const cardAudioFile = "/cards/" + card.category + "/" + card.audio;
       this.game.audio = new Audio(cardAudioFile);
+      this.game.audio.onended = function () {
+        store.game.audio = false;
+      };
       this.game.audio.play();
     }
   },
@@ -94,10 +116,13 @@ export default {
   stopAudio() {
     if (this.game.audio) {
       this.game.audio.pause();
+      this.game.audio.onended = false;
+      this.game.audio = false;
     }
   },
 
   giveUp() {
+    console.log("Give Up");
     this.openAllSquares();
     this.playCardAudio();
     this.game.givedUp = true;
@@ -106,7 +131,7 @@ export default {
   guessWhat(guessTry) {
     $("#guessWhat").trigger("blur");
 
-    if (guessTry == "") return false;
+    if (guessTry == "" || this.game.givedUp || this.game.guessed) return false;
 
     console.log("Guess What: " + guessTry);
 
@@ -115,8 +140,10 @@ export default {
       this.openAllSquares();
       this.game.guessed = true;
       const card = this.card;
-      const audio = playAudio("right", "mpeg");
-      audio.onended = function () {
+
+      this.stopAudio();
+      this.game.audio = playAudio("right", "mpeg");
+      this.game.audio.onended = function () {
         store.playCardAudio(card);
       };
     } else {

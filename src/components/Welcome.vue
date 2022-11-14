@@ -6,14 +6,8 @@
     <br><br>
 
     <select class="form form-select" v-model="game.cardSorting">
-      <option value="shuffle">Shuffle Cards</option>
       <option value="alpha">Alphabetical Sorting</option>
-    </select>
-
-    <select id="categoryField" class="form form-select" v-model="game.category">
-      <option value="0">Choose a Category</option>
-      <option value="all">All Cards</option>
-      <option v-for="category,index in categories" :value="index">{{ category.name }}</option>
+      <option value="shuffle">Shuffle Cards</option>
     </select>
 
     <select class="form form-select" v-model="game.difficulty">
@@ -22,6 +16,8 @@
       <option value="hard">Hard Mode</option>
     </select>
 
+    <category-select :categories="categories"></category-select>
+
     <button class="btn btn-primary" @click="startGame">Start Game</button>
 
   </main>
@@ -29,6 +25,7 @@
   
 <script>
 import store from "$/store.js";
+import CategorySelect from "./CategorySelect.vue";
 
 export default {
   data() {
@@ -39,6 +36,10 @@ export default {
     startGame() {
       return store.startGame();
     }
+  },
+
+  components: {
+    CategorySelect
   }
 }
 </script>

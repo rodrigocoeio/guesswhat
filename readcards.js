@@ -1,64 +1,12 @@
 const path = require("path");
 const fs = require("fs");
+const { exit } = require("process");
 const silenceMode = true;
-
-const readFolder = async function (folder, categoryName) {
-  const directoryPath = path.join(__dirname, folder);
-  const categories = {};
-  let cover = false;
-  const cards = [];
-
-  const files = fs.readdirSync(directoryPath);
-
-  files.forEach(async function (fileName) {
-    const fullFilePath = folder + "/" + fileName;
-
-    if (fs.lstatSync(fullFilePath).isDirectory()) {
-      if (!silenceMode) console.log("reading category: " + fileName);
-
-      const categoryRead = await readFolder(fullFilePath, fileName);
-      const category = {
-        name: capitalizeFirstLetter(fileName),
-        cover: categoryRead.cover,
-        cards: categoryRead.cards,
-      };
-
-      categories[fileName] = category;
-    } else {
-      if (!silenceMode) console.log("reading card: " + fileName);
-
-      const fileExtension = getExtensionFromFileName(fileName);
-
-      if (fileExtension === "jpg" || fileExtension === "jpge") {
-        const cardName = removeExtensionFromFileName(fileName);
-        const cardAudio = cardName + ".mp3";
-        const card = {
-          name: capitalizeFirstLetter(cardName),
-          category: categoryName,
-          image: fileName,
-          audio: fs.existsSync(folder + "/" + cardAudio) ? cardAudio : false,
-        };
-
-        if (cardName == categoryName) {
-          cover = card;
-        } else {
-          cards.push(card);
-        }
-      }
-    }
-  });
-
-  return {
-    cover,
-    categories,
-    cards,
-  };
-};
 
 const getExtensionFromFileName = function (fileName) {
   const fileNameSplited = fileName.split(".");
 
-  return fileNameSplited[1] ? fileNameSplited[1].toLowerCase() : "";
+  return fileNameSplited.length > 1 ? fileNameSplited.pop() : false;
 };
 
 const removeExtensionFromFileName = function (fileName) {
@@ -69,15 +17,161 @@ const capitalizeFirstLetter = function (string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
+const formatCardName = function (cardName) {
+  const fileNameSplited = cardName.split("-");
+
+  cardName = fileNameSplited.length > 1 ? fileNameSplited.pop() : fileNameSplited[0];
+
+  cardName = cardName.trim();
+  cardName = cardName.replace(/(\r\n|\n|\r)/gm, "");
+
+  return capitalizeFirstLetter(cardName);
+};
+
+const readFolder = async function (folder, parent) {
+  const contents = [];
+
+  const directoryPath = path.join(__dirname, folder);
+  const folderFiles = fs.readdirSync(directoryPath);
+
+  folderFiles.forEach(async function (fullName) {
+    const fullPath = folder + "/" + fullName;
+
+    // Directory / Folder
+    if (fs.lstatSync(fullPath).isDirectory()) {
+      const parentFullName = parent ? parent + "/" + fullName : fullName;
+      const folderContents = await readFolder(fullPath, parentFullName);
+      const folder = {
+        type: "folder",
+        name: fullName,
+        parent: parentFullName,
+        fullPath: fullPath,
+        contents: folderContents,
+      };
+
+      contents.push(folder);
+    }
+
+    // File
+    else {
+      const fileName = removeExtensionFromFileName(fullName);
+      const fileExtension = getExtensionFromFileName(fullName);
+
+      const file = {
+        type: "file",
+        name: fileName,
+        parent: parent,
+        extension: fileExtension,
+        fileName: fullName,
+        fullPath: fullPath,
+      };
+
+      contents.push(file);
+    }
+  });
+
+  return contents;
+};
+
 const readCategories = async function (folder, callback) {
-  const categories = await readFolder(folder);
-  callback(categories);
+  const contents = await readFolder(folder);
+
+  const categoriesCards = readContents(contents);
+  callback(categoriesCards.categories);
+};
+
+const readContents = (contents, parent) => {
+  let cover = false;
+  let categories = {};
+  let cards = [];
+
+  contents.forEach((content) => {
+    content = readContent(content, parent);
+
+    switch (content.type) {
+      case "category":
+        categories[content.name] = content;
+        break;
+
+      case "cover":
+        cover = content;
+        break;
+
+      case "card":
+        cards.push(content);
+        break;
+    }
+  });
+
+  return { cover, categories, cards };
+};
+
+const readContent = (content, parent) => {
+  switch (content.type) {
+    case "folder":
+      const category = getCategory(content, parent);
+      const folderContents = readContents(content.contents, content);
+      category.cover = folderContents.cover;
+      category.categories = folderContents.categories;
+      category.cards = folderContents.cards;
+
+      return category;
+      break;
+    case "file":
+      const card = getCard(content, parent);
+
+      return card;
+      break;
+  }
+
+  return false;
+};
+
+const getCategory = (content, parent) => {
+  return {
+    type: "category",
+    name: content.name,
+    cover: false,
+    parent: parent ? parent.parent : "",
+  };
+};
+
+const getCard = (content, parent) => {
+  if (content.extension == "jpg" || content.extension == "png") {
+    const cardName = formatCardName(content.name);
+    const cardType = formatCardName(parent.name).toLowerCase() == cardName.toLowerCase() ? "cover" : "card";
+    const cardImage = content.fileName;
+    const cardAudio = findCardFile(content.name, parent, "mp3");
+
+    return {
+      type: cardType,
+      name: cardName,
+      category: parent.name,
+      parent: content.parent,
+      image: cardImage,
+      audio: cardAudio
+    };
+  }
+
+  return false;
+};
+
+const findCardFile = (name, parent, extension) => {
+  let file = false;
+
+  if (parent.contents)
+    parent.contents.forEach((content) => {
+      if (content.name === name && content.extension === extension)
+        file = content;
+    });
+
+  return file.fileName;
 };
 
 const folder = "./public/cards";
 const categoriesJsonPath = "./src/stores/categories.json";
 
-if (!silenceMode) console.log("reading cards...");
+console.log("reading categories and cards...");
 
 readCategories(folder, function (categories) {
   fs.writeFileSync(categoriesJsonPath, JSON.stringify(categories));

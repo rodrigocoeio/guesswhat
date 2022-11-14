@@ -27,6 +27,10 @@ export default {
             return store.game.cover;
         },
 
+        playingAudio() {
+            return store.game.audio;
+        },
+
         image() {
             const path = "/cards/" + this.card.category + "/";
 

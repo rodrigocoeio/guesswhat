@@ -1,3 +1,3 @@
 import categoriesJson from "./categories.json";
 
-export default categoriesJson.categories;
+export default categoriesJson;
