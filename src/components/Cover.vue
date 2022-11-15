@@ -32,7 +32,7 @@ export default {
         },
 
         image() {
-            const path = "/cards/" + this.card.category + "/";
+            const path = "/cards/" + this.card.parent + "/";
 
             return this.card ? path + this.card.image : false;
         }

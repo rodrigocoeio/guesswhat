@@ -104,7 +104,7 @@ export default {
     const store = this;
 
     if (card.audio) {
-      const cardAudioFile = "/cards/" + card.category + "/" + card.audio;
+      const cardAudioFile = "/cards/" + card.parent + "/" + card.audio;
       this.game.audio = new Audio(cardAudioFile);
       this.game.audio.onended = function () {
         store.game.audio = false;
