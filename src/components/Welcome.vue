@@ -5,12 +5,12 @@
 
     <br><br>
 
-    <select class="form form-select" v-model="game.cardSorting">
+    <select class="form form-select" v-model="cardSorting">
       <option value="alpha">Alphabetical Sorting</option>
       <option value="shuffle">Shuffle Cards</option>
     </select>
 
-    <select class="form form-select" v-model="game.difficulty">
+    <select class="form form-select" v-model="difficulty">
       <option value="easy">Easy Mode</option>
       <option value="normal">Normal Mode</option>
       <option value="hard">Hard Mode</option>
@@ -29,7 +29,20 @@ import CategorySelect from "./CategorySelect.vue";
 
 export default {
   data() {
-    return store
+    return {
+      categories: store.categories,
+      difficulty: store.game.difficulty,
+      cardSorting: store.game.cardSorting
+    }
+  },
+
+  watch: {
+    difficulty(value) {
+      store.game.difficulty = value;
+    },
+    cardSorting(value) {
+      store.game.cardSorting = value;
+    }
   },
 
   methods: {

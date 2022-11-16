@@ -44,21 +44,7 @@ export default {
 
     methods: {
         selectCategory() {
-            const category = this.currentCategory;
-            
-            if (category && category.cards) {
-                switch (store.game.cardSorting) {
-                    case "alpha":
-                        category.cards = sortByKey(category.cards, "name", "asc");
-                        break;
-
-                    case "shuffle":
-                        category.cards = shuffleArray(category.cards);
-                        break;
-                }
-            }
-
-            store.game.category = category;
+            store.selectCategory(this.currentCategory);
         }
     }
 }

@@ -15,7 +15,8 @@
                 </a>
             </button>
 
-            <button class="btn btn-primary StartGame" @click="startGame" :disabled="playingAudio" v-if="cover">Start Game</button>
+            <button class="btn btn-primary StartGame" @click="startGame" :disabled="playingAudio" v-if="cover">Start
+                Game</button>
 
             <!-- Navbar -->
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -24,7 +25,7 @@
                     <li class="nav-item CategoryName">
                         {{ categoryName }}
                     </li>
-                    
+
                     <!-- Guess What -->
                     <li class="nav-item">
                         <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry"
@@ -37,7 +38,8 @@
 
                     <!-- Give Up -->
                     <li class="nav-item">
-                        <button id="giveUpButton" class="btn btn-outline-warning" @click="giveUp" :disabled="guessed || givedUp">
+                        <button id="giveUpButton" class="btn btn-outline-warning" @click="giveUp"
+                            :disabled="guessed || givedUp">
                             Give Up
                         </button>
                     </li>
@@ -48,27 +50,28 @@
                     <!-- Open Next -->
                     <li class="nav-item">
                         <button id="openSquareButton" class="btn btn-success" @click="openNext"
-                            :disabled="squares.length==0">
+                            :disabled="squares.length == 0">
                             Open Square
                         </button>
                     </li>
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button id="previousCardButton" class="btn btn-outline-warning" :disabled="deck_index==0 || playingAudio" @click="previousCard">
+                        <button id="previousCardButton" class="btn btn-outline-warning"
+                            :disabled="cardIndex == 0 || playingAudio" @click="previousCard">
                             &laquo; Previous Card
                         </button>
                     </li>
 
                     <li class="nav-item">
                         &nbsp;&nbsp;
-                        {{ deck_index + 1 }} / {{ cardsNumber }}
+                        {{ cardIndex + 1 }} / {{ cardsNumber }}
                     </li>
 
                     <!-- Next Card -->
                     <li class="nav-item">
-                        <button id="nextCardButton" class="btn btn-success" :disabled="deck_index==(cardsNumber-1) || playingAudio"
-                            @click.stop.prevent="nextCard">
+                        <button id="nextCardButton" class="btn btn-success"
+                            :disabled="(cardIndex + 1) == cardsNumber || playingAudio" @click.stop.prevent="nextCard">
                             Next Card &raquo;
                         </button>
                     </li>
@@ -109,8 +112,7 @@ export default {
         },
 
         cardsOptions() {
-            const cards = sortByKey(this.cards, "name" , "asc");
-            return cards;
+            return sortByKey([...this.cards], "name");
         },
 
         cover() {
@@ -125,8 +127,8 @@ export default {
             return store.game.givedUp;
         },
 
-        deck_index() {
-            return store.game.deck_index;
+        cardIndex() {
+            return store.game.cardIndex;
         },
 
         cardsNumber() {

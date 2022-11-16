@@ -37,14 +37,6 @@ export default {
     },
 
     computed: {
-        deck() {
-            return store.game.deck;
-        },
-
-        deck_index() {
-            return store.game.deck_index;
-        },
-
         card() {
             return store.card;
         },

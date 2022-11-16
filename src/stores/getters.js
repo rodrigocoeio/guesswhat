@@ -8,11 +8,10 @@ export default {
   },
 
   card() {
-    const deck_index = this.game.deck_index;
-    const card_index = this.game.deck[deck_index];
+    const cardIndex = this.game.cardIndex;
 
-    return this.currentCategory && this.currentCategory.cards[card_index]
-      ? this.currentCategory.cards[card_index]
+    return this.currentCategory && this.currentCategory.cards[cardIndex]
+      ? this.currentCategory.cards[cardIndex]
       : false;
   },
 

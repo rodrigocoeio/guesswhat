@@ -13,6 +13,8 @@ import Card from "./Card.vue";
 import store from "$/store.js";
 import '../keyListener.js';
 
+window.store = store;
+
 export default {
     computed: {
         cover() {

@@ -5,11 +5,11 @@ export default {
     started: false,
     difficulty: "normal",
     category: false,
+    cards: [],
     cardSorting: "alpha",
     audio: false,
-    deck: [],
     squares: [],
-    deck_index: 0,
+    cardIndex: 0,
     guessed: false,
     givedUp: false
   },

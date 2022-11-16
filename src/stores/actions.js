@@ -1,8 +1,11 @@
 export default {
   startGame() {
-    if(!this.currentCategory || (!this.currentCategory.cards || this.currentCategory.cards.length===0))
-    {
-      alert('Choose a Category or Subcategory');
+    if (
+      !this.currentCategory ||
+      !this.currentCategory.cards ||
+      this.currentCategory.cards.length === 0
+    ) {
+      alert("Choose a Category or Subcategory");
       $("#categoryField").trigger("focus");
       return false;
     }
@@ -13,25 +16,19 @@ export default {
     this.game.cover = this.currentCategory.cover;
     this.game.guessed = false;
     this.game.givedUp = false;
-    this.game.deck_index = 0;
-    this.game.deck = this.getNewDeck();
+    this.game.cardIndex = 0;
     this.game.squares = this.getCardSquares();
   },
 
-  getNewDeck() {
-    const cards = [];
-
-    for (let i = 0; i < this.cardsNumber; i++) {
-      cards.push(i);
-    }
-
-    return this.game.cardSorting === "shuffle"
-      ? shuffleArray(cards)
-      : sortByKey(cards, "name");
+  quitGame() {
+    console.log("Quit Game");
+    this.game.started = false;
+    this.game.category = false;
   },
 
   getCardSquares() {
     const squares = [];
+
     for (let i = 0; i < this.squaresNumber; i++) {
       squares.push(i + 1);
     }
@@ -39,31 +36,49 @@ export default {
     return shuffleArray(squares);
   },
 
+  selectCategory(category) {
+    if (category && category.cards) {
+
+      switch (this.game.cardSorting) {
+        case "alpha":
+          category.cards = sortByKey(category.cards, "name", "asc");
+          break;
+
+        case "shuffle":
+          category.cards = shuffleArray(category.cards);
+          break;
+      }
+
+      this.game.category = category;
+    }
+  },
+
   nextCard() {
     if (this.game.audio) return false;
 
     if (this.game.cover) return (this.game.cover = false);
 
-    console.log("Next Card");
+    if (this.game.cardIndex + 1 < this.cardsNumber) {
+      console.log("Next Card");
 
-    if (this.game.deck_index < this.game.deck.length - 1)
-      this.game.deck_index++;
-
-    this.game.guessed = false;
-    this.game.givedUp = false;
-    this.game.squares = this.getCardSquares();
+      this.game.cardIndex++;
+      this.game.guessed = false;
+      this.game.givedUp = false;
+      this.game.squares = this.getCardSquares();
+    }
   },
 
   previousCard() {
     if (this.game.audio) return false;
 
-    console.log("Previous Card");
+    if (this.game.cardIndex > 0) {
+      console.log("Previous Card");
 
-    if (this.game.deck_index > 0) this.game.deck_index--;
-
-    this.game.guessed = false;
-    this.game.givedUp = false;
-    this.game.squares = this.getCardSquares();
+      this.game.cardIndex--;
+      this.game.guessed = false;
+      this.game.givedUp = false;
+      this.game.squares = this.getCardSquares();
+    }
   },
 
   openSquare(number) {
@@ -149,11 +164,5 @@ export default {
     } else {
       playAudio("wrong", "mpeg");
     }
-  },
-
-  quitGame() {
-    console.log("Quit Game");
-    this.game.started = false;
-    this.game.category = false;
   },
 };
