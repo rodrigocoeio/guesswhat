@@ -154,5 +154,6 @@ export default {
   quitGame() {
     console.log("Quit Game");
     this.game.started = false;
+    this.game.category = false;
   },
 };
