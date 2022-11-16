@@ -31,7 +31,7 @@
                             :disabled="guessed || givedUp">
                             <option selected value="0">Guess What?</option>
 
-                            <option v-for="card in cards" :value="card.name">{{ card.name }}</option>
+                            <option v-for="card in cardsOptions" :value="card.name">{{ card.name }}</option>
                         </select>
                     </li>
 
@@ -106,6 +106,11 @@ export default {
 
         cards() {
             return store.cards;
+        },
+
+        cardsOptions() {
+            const cards = sortByKey(this.cards, "name" , "asc");
+            return cards;
         },
 
         cover() {
