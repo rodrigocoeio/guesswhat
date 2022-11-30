@@ -1,0 +1,11 @@
+version: '2'
+
+services:
+  guesswhat:
+    image: node
+    ports: 
+      - '88:88'
+    volumes:
+      - './:/app'
+    working_dir: /app
+    command: sh -c "npm install && npm run dev"
