@@ -137,7 +137,7 @@ const getCard = (content, parent) => {
     const cardName = formatCardName(content.name);
     const cardType = formatCardName(parent.name).toLowerCase() == cardName.toLowerCase() ? "cover" : "card";
     const cardImage = content.fileName;
-    const cardAudio = findCardFile(content.name, parent, "mp3");
+    const cardAudio = findCardFile(content.name, parent, "mp3") || findCardFile(content.name, parent, "mpeg");
 
     return {
       type: cardType,
