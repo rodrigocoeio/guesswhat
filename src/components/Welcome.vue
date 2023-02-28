@@ -1,7 +1,7 @@
 <template>
   <main>
 
-    <img src="images/guesswhat.jpg">
+    <img src="/images/guesswhat.jpg">
 
     <br><br>
 

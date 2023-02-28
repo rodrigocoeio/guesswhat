@@ -3,8 +3,9 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "node readcards.js && vite",
-    "build": "vite build",
+    "build": "node readcards.js && vite build",
     "preview": "vite preview --port 4173",
+    "live": "node readcards.js && vite build && vite preview --port 88",
     "lint": "eslint . --ext .vue,.js,.jsx,.cjs,.mjs --fix --ignore-path .gitignore",
     "readcards": "node readcards.js"
   },

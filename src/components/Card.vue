@@ -3,7 +3,7 @@
         <div id="card" class="Card" ref="card" v-if="card">
             <div v-if="guessed || givedUp" class="alert alert-success" role="alert">
                 <div v-if="guessed">
-                    <img src="images/congrats.png" class="CongratsImage">
+                    <img src="/images/congrats.png" class="CongratsImage">
                     <br>
                     Congrats! You've nailed it!
                 </div>
