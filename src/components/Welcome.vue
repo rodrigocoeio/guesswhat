@@ -28,6 +28,10 @@ import store from "$/store.js";
 import CategorySelect from "./CategorySelect.vue";
 
 export default {
+  async beforeMount() {
+    await store.loadCategories();
+  },
+  
   data() {
     return {
       categories: store.categories,

@@ -26,6 +26,16 @@ export default {
     this.game.category = false;
   },
 
+  async loadCategories() {
+    try {
+      const categoriesJson = await fetch('/categories.json');
+      this.categories = await categoriesJson.json();
+    }
+    catch(e) {
+      //console.error('Failed loading categories.json!');
+    }    
+  },
+
   getCardSquares() {
     const squares = [];
 
