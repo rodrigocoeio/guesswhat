@@ -34,9 +34,14 @@ export default {
   
   data() {
     return {
-      categories: store.categories,
       difficulty: store.game.difficulty,
       cardSorting: store.game.cardSorting
+    }
+  },
+
+  computed: {
+    categories() {
+      return store.categories;
     }
   },
 
