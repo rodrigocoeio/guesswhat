@@ -8,14 +8,8 @@ import "./assets/main.css";
 
 import "./scripts.js";
 
-// Import our custom CSS
-import "./assets/styles.scss";
-
 import jQuery from "jquery";
 window.$ = jQuery;
-
-// Import all of Bootstrap's JS
-import * as bootstrap from "bootstrap";
 
 const app = createApp(App);
 

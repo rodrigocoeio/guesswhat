@@ -1,21 +1,7 @@
 <template>
     <nav class="navbar navbar-expand-lg bg-light">
         <div class="container-fluid">
-            <!-- Logo -->
-            <a id="logo" class="navbar-brand">
-                <img src="/images/guesswhat.jpg" width="36" />
-            </a>
-
-            <!-- Navbar Toogler -->
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
-                aria-label="Toggle navigation">
-                <a class="navbar-brand" href="#">
-                    <img src="/images/guesswhat.jpg" width="36" />
-                </a>
-            </button>
-
-            <button class="btn btn-primary StartGame" @click="startGame" :disabled="playingAudio" v-if="cover">Start
+            <button class="StartGame" @click="startGame" :disabled="playingAudio" v-if="cover">Start
                 Game</button>
 
             <!-- Navbar -->
@@ -23,12 +9,13 @@
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="!cover">
                     <!-- Category Name -->
                     <li class="nav-item CategoryName">
+                        <img src="/images/guesswhat.jpg" width="36" />
                         {{ categoryName }}
                     </li>
 
                     <!-- Guess What -->
                     <li class="nav-item">
-                        <select id="guessWhat" class="form-select" @change="guessWhat" v-model="guessTry"
+                        <select id="guessWhat" class="GuessWhatSelect" @change="guessWhat" v-model="guessTry"
                             :disabled="guessed || givedUp">
                             <option selected value="0">Guess What?</option>
 
@@ -38,8 +25,7 @@
 
                     <!-- Give Up -->
                     <li class="nav-item">
-                        <button id="giveUpButton" class="btn btn-outline-warning" @click="giveUp"
-                            :disabled="guessed || givedUp">
+                        <button id="giveUpButton" class="GiveUpButton" @click="giveUp" :disabled="guessed || givedUp">
                             Give Up
                         </button>
                     </li>
@@ -47,9 +33,9 @@
 
 
                 <ul class="nav navbar-nav navbar-right" v-if="!cover">
-                    <!-- Open Next -->
+                    <!-- Open Square -->
                     <li class="nav-item">
-                        <button id="openSquareButton" class="btn btn-success" @click="openNext"
+                        <button id="openSquareButton" class="OpenSquareButton" @click="openNext"
                             :disabled="squares.length == 0">
                             Open Square
                         </button>
@@ -57,7 +43,7 @@
 
                     <!-- Previous Card -->
                     <li class="nav-item">
-                        <button id="previousCardButton" class="btn btn-outline-warning"
+                        <button id="previousCardButton" class="PreviousCardButton"
                             :disabled="cardIndex == 0 || playingAudio" @click="previousCard">
                             &laquo; Previous Card
                         </button>
@@ -70,7 +56,7 @@
 
                     <!-- Next Card -->
                     <li class="nav-item">
-                        <button id="nextCardButton" class="btn btn-success"
+                        <button id="nextCardButton" class="NextCardButton"
                             :disabled="(cardIndex + 1) == cardsNumber || playingAudio" @click.stop.prevent="nextCard">
                             Next Card &raquo;
                         </button>
@@ -78,7 +64,7 @@
 
                     <!-- Quit Game -->
                     <li class="nav-item">
-                        <button class="btn btn-danger" @click="quitGame">
+                        <button class="QuitGameButton" @click="quitGame">
                             Quit Game
                         </button>
                     </li>
@@ -188,12 +174,65 @@ export default {
 </script>
 
 <style scoped>
+nav * {
+    display: inline-block;
+}
+
+ul {
+    list-style: none;
+}
+
 button {
     margin-left: 15px;
 }
 
+.CategoryName {
+    text-shadow: gray 3px 1px 1px;
+    -webkit-text-stroke: 1px black;
+}
+
+.GuessWhatSelect {
+    padding: 5px;
+    font-size: 18px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.GuessWhatSelect:not([disabled]):hover {
+    background-color: chartreuse;
+    text-shadow: white 3px 0 10px;
+    box-shadow: 3px 3px gray;
+}
+
+button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+button:not([disabled]):hover {
+    background-color: chartreuse;
+    text-shadow: white 3px 0 10px;
+    box-shadow: 3px 3px gray;
+}
+
+.QuitGameButton:not([disabled]):hover {
+    background-color: crimson;
+}
+
+.GiveUpButton:not([disabled]):hover {
+    background-color: yellow;
+}
+
+.PreviousCardButton:not([disabled]):hover {
+    background-color: yellow;
+}
+
 .StartGame {
-    margin-left: calc(50% - 100px);
+    margin: auto;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .CategoryName {
