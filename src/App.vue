@@ -10,9 +10,9 @@
     </div>
   </header>
 
-  <content>
+  <section>
     <RouterView />
-  </content>
+  </section>
 </template>
 
 <script setup>

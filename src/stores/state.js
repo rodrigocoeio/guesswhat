@@ -11,7 +11,8 @@ export default {
     squares: [],
     cardIndex: 0,
     guessed: false,
-    givedUp: false
+    givedUp: false,
+    pleaseSelectCategory: false
   },
 
   difficulties: {

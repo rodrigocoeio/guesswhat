@@ -5,8 +5,7 @@ export default {
       !this.currentCategory.cards ||
       this.currentCategory.cards.length === 0
     ) {
-      alert("Choose a Category or Subcategory");
-      $("#categoryField").trigger("focus");
+      this.game.pleaseSelectCategory = true;
       return false;
     }
 
@@ -23,17 +22,15 @@ export default {
   quitGame() {
     console.log("Quit Game");
     this.game.started = false;
-    this.game.category = false;
   },
 
   async loadCategories() {
     try {
-      const categoriesJson = await fetch('/categories.json');
+      const categoriesJson = await fetch("/categories.json");
       this.categories = await categoriesJson.json();
-    }
-    catch(e) {
+    } catch (e) {
       //console.error('Failed loading categories.json!');
-    }    
+    }
   },
 
   getCardSquares() {
@@ -48,7 +45,6 @@ export default {
 
   selectCategory(category) {
     if (category && category.cards) {
-
       switch (this.game.cardSorting) {
         case "alpha":
           category.cards = sortByKey(category.cards, "name", "asc");
@@ -59,6 +55,7 @@ export default {
           break;
       }
 
+      this.game.pleaseSelectCategory = false;
       this.game.category = category;
     }
   },

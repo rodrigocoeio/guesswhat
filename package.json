@@ -10,8 +10,8 @@
     "readcards": "node readcards.js"
   },
   "dependencies": {
-    "bootstrap": "^5.2.2",
-    "jquery": "^3.6.1",
+    "bootstrap": "^5.2.3",
+    "jquery": "^3.6.3",
     "pinia": "^2.0.21",
     "sass": "^1.55.0",
     "vue": "^3.2.38",

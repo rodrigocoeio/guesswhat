@@ -13,7 +13,7 @@ const listenKeyBoardEvents = function (e) {
     if (e.keyCode == 32) {
       if (store.game.guessed || store.game.givedUp) store.playCardAudio();
       else if (store.game.cover) store.playCardAudio(store.game.cover);
-      else $("#guessWhat").trigger("focus");
+      else document.getElementById("guessWhat").focus();
     }
 
     // Previous card on left arrow
@@ -42,8 +42,7 @@ const listenKeyBoardEvents = function (e) {
   }
 };
 
-$(window).on("resize", function (e) {
+window.addEventListener("resize", function (e) {
   store.quitGame();
 });
-
 window.addEventListener("keydown", listenKeyBoardEvents);

@@ -1,6 +1,9 @@
 html, body {
     text-align: center;
     height: 100%;
+    background-color: black !important;
+    color: white;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
 #app {
@@ -8,7 +11,7 @@ html, body {
     height: 100%;
 }
 
-content {
+section {
     display: block;
     height: 100%;
 }
