@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="WelcomeWrapper">
-      <img src="/images/guesswhat.jpg" width="400">
+      <img src="/images/guesswhat.jpg" class="Logo" width="400">
       <h1>Guess What?</h1>
 
       <div>
@@ -75,6 +75,12 @@ main {
   place-content: center;
   justify-items: center;
   align-items: center;
+}
+
+.Logo {
+  border: 2px solid black;
+  border-radius: 30px;
+  box-shadow: 3px 3px gray;
 }
 
 h1 {
