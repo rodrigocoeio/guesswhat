@@ -183,7 +183,21 @@ ul {
 }
 
 button {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 15px;
+    cursor: pointer;
     margin-left: 15px;
+}
+
+button:not([disabled]):hover {
+    background-color: chartreuse;
+    text-shadow: white 3px 0 10px;
+    box-shadow: 3px 3px gray;
+}
+
+button * {
+    vertical-align: middle;
 }
 
 .CategoryName {
@@ -197,28 +211,10 @@ button {
     border-radius: 15px;
     cursor: pointer;
 }
-
 .GuessWhatSelect:not([disabled]):hover {
     background-color: chartreuse;
     text-shadow: white 3px 0 10px;
     box-shadow: 3px 3px gray;
-}
-
-button {
-    padding: 8px;
-    font-size: 14px;
-    border-radius: 15px;
-    cursor: pointer;
-}
-
-button:not([disabled]):hover {
-    background-color: chartreuse;
-    text-shadow: white 3px 0 10px;
-    box-shadow: 3px 3px gray;
-}
-
-.QuitGameButton:not([disabled]):hover {
-    background-color: crimson;
 }
 
 .GiveUpButton:not([disabled]):hover {
@@ -227,6 +223,10 @@ button:not([disabled]):hover {
 
 .PreviousCardButton:not([disabled]):hover {
     background-color: yellow;
+}
+
+.QuitGameButton:not([disabled]):hover {
+    background-color: crimson;
 }
 
 .StartGame {
