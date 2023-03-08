@@ -17,6 +17,7 @@ export default {
     this.game.givedUp = false;
     this.game.cardIndex = 0;
     this.game.squares = this.getCardSquares();
+    this.game.category.cards = this.shuffleCards(this.game.category.cards);
   },
 
   quitGame() {
@@ -45,19 +46,24 @@ export default {
 
   selectCategory(category) {
     if (category && category.cards) {
-      switch (this.game.cardSorting) {
-        case "alpha":
-          category.cards = sortByKey(category.cards, "name", "asc");
-          break;
-
-        case "shuffle":
-          category.cards = shuffleArray(category.cards);
-          break;
-      }
-
+      category.cards = this.shuffleCards(category.cards);
       this.game.pleaseSelectCategory = false;
       this.game.category = category;
     }
+  },
+
+  shuffleCards(cards) {
+    switch (this.game.cardSorting) {
+      case "alpha":
+        cards = sortByKey(cards, "name", "asc");
+        break;
+
+      case "shuffle":
+        cards = shuffleArray(cards);
+        break;
+    }
+
+    return cards;
   },
 
   nextCard() {
