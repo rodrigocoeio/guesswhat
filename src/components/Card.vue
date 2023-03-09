@@ -112,7 +112,6 @@ export default {
     border: 3px dashed white;
     box-sizing: border-box;
     overflow: hidden;
-    text-shadow: gray 3px 10px 10px;
 }
 
 .Card {
@@ -125,9 +124,6 @@ export default {
 
 .CardNameBox {
     padding: 15px;
-    color: white;
-    text-shadow: gray 3px 0 10px;
-    -webkit-text-stroke: 1px black;
     margin: 0px;
     margin-bottom: -20px;
     border-bottom: 3px dashed black;
@@ -145,6 +141,10 @@ export default {
 
 .CardName h1 {
     float: left;
+    color: black;
+    text-shadow: gray 3px 2px 2px;
+    -webkit-text-stroke: 1px black;
+    font-size: 48px;
 }
 
 .PlayCardAudio {
@@ -157,9 +157,10 @@ export default {
     opacity: 0.1;
     float: left;
     margin-left: 15px;
-    margin-top: 25px;
+    margin-top: 40px;
     height: 36px;
 }
+
 .PlayCardAudio:hover {
     background-color: greenyellow;
     box-shadow: 2px 2px black;

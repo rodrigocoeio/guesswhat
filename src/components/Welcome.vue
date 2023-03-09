@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="WelcomeWrapper">
-      <img src="/images/guesswhat.jpg" class="Logo" width="400">
+      <img src="/images/guesswhat.jpg" class="Logo" width="500">
       <h1>Guess What?</h1>
 
       <div>

@@ -69,8 +69,11 @@ export default {
 
 .CardNameBox {
     padding: 15px;
-    color: white;
-    text-shadow: gray 3px 0 10px;
+    color: black;
+    text-shadow: gray 3px 2px 2px;
+    -webkit-text-stroke: 1px black;
+    font-size: 20px;
+    text-shadow: gray 3px 3 3px;
     -webkit-text-stroke: 1px black;
     margin: 0px;
     margin-bottom: -20px;
@@ -129,7 +132,7 @@ export default {
     opacity: 0.1;
     float: left;
     margin-left: 15px;
-    margin-top: 25px;
+    margin-top: 40px;
     height: 36px;
 }
 
