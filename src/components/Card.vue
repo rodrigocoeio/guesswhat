@@ -137,7 +137,7 @@ export default {
 
 .Congrats {
     color: black;
-    font-size: 14px;
+    font-size: 20px;
     margin-bottom: -30px;
 }
 
