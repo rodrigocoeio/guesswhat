@@ -2,7 +2,7 @@
     <div class="CardBox">
         <div id="card" class="Card" ref="card" v-if="card" @click="playCardAudio">
             <div v-if="guessed || givedUp" class="CardNameBox">
-                <div v-if="guessed">
+                <div v-if="guessed" class="Congrats">
                     <img src="/images/congrats.png" class="CongratsImage">
                     <br>
                     Congrats! You've nailed it!
@@ -132,6 +132,13 @@ export default {
     border-radius: 20px;
     overflow: hidden;
     background-color: white;
+    color:black;
+}
+
+.Congrats {
+    color: black;
+    font-size: 14px;
+    margin-bottom: -30px;
 }
 
 .CardName {
